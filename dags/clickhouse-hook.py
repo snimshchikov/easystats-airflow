@@ -13,7 +13,7 @@ with DAG(
         dag_id='clickhouse_hook',
         start_date=days_ago(2),
 ) as dag:
-    dag >> PythonOperator(
+    PythonOperator(
         task_id='get_count_via_hook',
         python_callable=mysql_to_clickhouse,
     )

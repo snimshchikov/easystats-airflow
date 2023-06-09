@@ -8,7 +8,7 @@ with DAG(
         dag_id='listen_warnings',
         start_date=days_ago(2),
 ) as dag:
-    dag >> ClickHouseSqlSensor(
+    ClickHouseSqlSensor(
         task_id='get_today_count',
         database='bots',
         sql="SELECT count() FROM eventsgo WHERE eventDate = '{{ ds }}'",
@@ -19,4 +19,4 @@ with DAG(
        subject='Alert Mail',
        html_content=""" Mail Test """,
        dag=dag
-)
+    )
