@@ -9,9 +9,9 @@ with DAG(
         start_date=days_ago(2),
 ) as dag:
     dag >> ClickHouseSqlSensor(
-        task_id='poke_events_count',
-        database='monitor',
-        sql="SELECT count() FROM warnings WHERE eventDate = '{{ ds }}'",
+        task_id='get_today_count',
+        database='bots',
+        sql="SELECT count() FROM eventsgo WHERE eventDate = '{{ ds }}'",
         success=lambda cnt: cnt > 10000,
     ) >> EmailOperator(
        task_id="send_email",
