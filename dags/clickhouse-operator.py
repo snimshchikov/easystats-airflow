@@ -4,11 +4,11 @@ from airflow.operators.python import PythonOperator
 from airflow.utils.dates import days_ago
 
 with DAG(
-        dag_id='update_count_dag',
+        dag_id='update_count',
         start_date=days_ago(2),
 ) as dag:
     ClickHouseOperator(
-        task_id='update_count',
+        task_id='update_count_operator',
         database='bots',
         sql=(
             '''
@@ -21,7 +21,7 @@ with DAG(
         ),
         clickhouse_conn_id='clickhouse_test',
     ) >> PythonOperator(
-        task_id='print_count',
+        task_id='print_count_test',
         provide_context=True,
         python_callable=lambda task_instance, **_:
             # pulling XCom value and printing it
