@@ -5,7 +5,7 @@ from airflow.utils.dates import days_ago
 
 
 def mysql_to_clickhouse():
-    ch_hook = ClickHouseHook()
+    ch_hook = ClickHouseHook(clickhouse_conn_id='clickhouse_test')
     ch_hook.run('SELECT count() FROM eventsgo')
 
 
